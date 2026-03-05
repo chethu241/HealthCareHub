@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
+<<<<<<< HEAD
 
     @Query("""
             SELECT new nimblix.in.HealthCareHub.response.PatientSearchResponse(
@@ -32,3 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             @Param("phone") String phone
     );
 }
+=======
+    boolean existsByEmail(String email);
+}
+>>>>>>> 85c721cae814bca568a4f4be22485f9c88a6f4f5
