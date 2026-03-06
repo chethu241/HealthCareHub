@@ -22,7 +22,8 @@ public class HealthCareConstants {
     public static String SCHOOLS_LIST ="Schools list" ;
     public static String SUBSCRIPTION_TRAIL ="TRIAL" ;
     public static String TEACHER_ROLE ="TEACHER" ;
-    public static  String DATA = "Data";
+    public static  String DATA = "data";
+    public static String PATIENT_REGISTERED_SUCCESSFULLY="Patient registered successfully";
     public static String IN_ACTIVE ="inActive" ;
     public static String STATUS_SUCCESS ="SUCCESS" ;
     public static final String STUDENT ="STUDENT" ;
@@ -32,7 +33,7 @@ public class HealthCareConstants {
     public static String ACTIVE = "active";
     public static String PENDING = "PENDING";
     public static String FAILED = "FAILED";
-    public static String MESSAGE ="message: " ;
+    public static final String MESSAGE = "message";
     public static final String ADMIN_ROLE="ADMIN";
     public static String USER_NOT_FOUND = "user not found: " ;
     public static final String PRESENT = "PRESENT";
