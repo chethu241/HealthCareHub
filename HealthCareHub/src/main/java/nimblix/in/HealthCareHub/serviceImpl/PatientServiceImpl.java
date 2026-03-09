@@ -28,27 +28,26 @@ public class PatientServiceImpl implements PatientService {
     @Transactional
     public PatientRegistrationResponse registerPatient(PatientRegistrationRequest request) {
 
-        // 1️⃣ Check if email exists
-        if(userRepository.findByEmail(request.getEmail()).isPresent()) {
-            return new PatientRegistrationResponse(false, "Email already exists");
+        //  Checks if email already exists
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
         }
 
-        // 2️⃣ Check password match
-        if(!request.getPassword().equals(request.getConfirmPassword())) {
-            return new PatientRegistrationResponse(false, "Password and Confirm Password do not match");
+        // Checks password match
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            throw new IllegalArgumentException("Password and Confirm Password do not match");
         }
 
-        // 3️⃣ Create User
+        // Creates User
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(nimblix.in.HealthCareHub.model.Role.PATIENT);
-        user.setEnabled(true);  // required for login
-
+        user.setEnabled(true);
 
         userRepository.save(user);
 
-        // 4️⃣ Create Patient linked to User
+        //  Creates Patient linked to User
         Patient patient = new Patient();
         patient.setName(request.getFirstName() + " " + request.getLastName());
         patient.setGender(request.getGender());
@@ -56,6 +55,6 @@ public class PatientServiceImpl implements PatientService {
 
         entityManager.persist(patient);
 
-        return new PatientRegistrationResponse(true, "Registration successful");
+        return new PatientRegistrationResponse(true, "Patient registered successfully");
     }
 }
