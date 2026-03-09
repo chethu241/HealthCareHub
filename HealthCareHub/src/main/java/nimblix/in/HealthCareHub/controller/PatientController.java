@@ -1,5 +1,6 @@
 package nimblix.in.HealthCareHub.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import nimblix.in.HealthCareHub.constants.HealthCareConstants;
 import nimblix.in.HealthCareHub.request.PatientRegistrationRequest;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class PatientController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> registerPatient(
-            @RequestBody PatientRegistrationRequest request) {
+            @Valid @RequestBody PatientRegistrationRequest request) {
 
         Map<String, Object> response = new LinkedHashMap<>();
 
@@ -40,6 +42,7 @@ public class PatientController {
             response.put(HealthCareConstants.MESSAGE,
                     HealthCareConstants.PATIENT_REGISTERED_SUCCESSFULLY);
             response.put(HealthCareConstants.DATA, data);
+            response.put("timestamp", LocalDateTime.now());
 
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
@@ -56,6 +59,8 @@ public class PatientController {
             response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.put("error", "Internal Server Error");
             response.put("message", "Unexpected error occurred");
+            response.put("timestamp", LocalDateTime.now());
+
 
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
